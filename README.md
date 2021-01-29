@@ -1,2 +1,8 @@
 # Batch-Simulation-With-Varied-Composition
-Creating repository for uploading work which automates the creation of various molecular dynamics using packmol to initialize and proceeds to create gromacs ready files
+Python scripts which automate the creation of various molecular dynamics systems using packmol to initialize before proceeding to create gromacs ready files.
+
+### Required Software
+
+- [python](https://www.python.org/) (3.6)
+- [packmol](http://m3g.iqm.unicamp.br/packmol/home.shtml) (>=\geq18.169)
+- [GROMACS](https://manual.gromacs.org/documentation/2020/download.html) (2020)
