@@ -1,0 +1,15 @@
+#include "/gscratch/pfaendtner/tludwig/MOD_sarah/forcefield.itp"
+#include "/gscratch/pfaendtner/tludwig/uremic_toxins/mips/ffs/ISO_f.itp"
+#include "/gscratch/pfaendtner/tludwig/uremic_toxins/mips/ffs/MOH_f.itp"
+
+; Include water topology
+#include "/gscratch/pfaendtner/tludwig/MOD_sarah/tip3p.itp" 
+; Include topology for ions
+#include "/gscratch/pfaendtner/tludwig/MOD_sarah/ions.itp"
+
+[ system ]
+brush and toxins in water
+[ molecules ]
+; Compound  nmols
+ISO           1
+SOL           SOLNUM
