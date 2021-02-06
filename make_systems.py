@@ -1,9 +1,24 @@
 #!/usr/bin/python
 import os
+import sys
 import shutil
 import subprocess
 import itertools
 import numpy as np
+from optparse import OptionParser
+
+parser = OptionParser()
+#parser.add_option("-s", "--schedule", dest="sched", default=True,help="use slurm scheduler")
+parser = OptionParser(usage="Usage: %prog [options]",description="Generates, equilibrates, and prepares production runs for gromacs molecular dynamics simulations at varied concentrations.")
+#parser.add_option("--stepframe", dest="stepframe", type="int", default=1, help="Step size when iterating over frames [default: %default]")
+parser.add_option("-s", "--schedule", dest="sched", default=True,help="use slurm scheduler")
+(options, args) = parser.parse_args()
+if (len(args))<1:
+	print("Need at least 1 arguments, but received " + str(len(args)) + ":", args, file=sys.stderr)
+	print("\n python make_systems.py --schedule")
+	sys.exit()
+sched = args[0]
+
 
 os.system('rm slurm*out')
 
@@ -97,7 +112,8 @@ for n,i in enumerate(systems):
 	subprocess.call(['gmx_mpi grompp -f nvt.mdp -c ../equil/nptber/confout.gro -p ../equil/topol.top -maxwarn 1'],shell=True)
 	sed='sed -i "s/JNAME/%s'%comps[count][:3]+str(system_n)+'/g" GROMACS.slurm'
 	subprocess.call([sed],shell=True)
-	subprocess.call(['sbatch -p ckpt -A pfaendtner-ckpt --ntasks=10 ./GROMACS.slurm'],shell=True)
+	if sched:
+		subprocess.call(['sbatch -p ckpt -A pfaendtner-ckpt --ntasks=10 ./GROMACS.slurm'],shell=True)
 	outfile.write('submitting job for %s%s \n'%(comps[count][:3],system_n))
 	os.chdir('../../')
 #	break
