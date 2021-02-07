@@ -24,7 +24,7 @@ The script assumes you are using a slurm scheduler to launch your jobs
 
 - __1__ - Add functionality for choosing to turn on/off slurm submission
 
-- __2__ - Add functionality for choosing amount of solvent
+- __2__ - COMPLETE: Add functionality for choosing amount of solvent
 
 
 
