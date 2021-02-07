@@ -19,6 +19,9 @@ The script assumes you are using a slurm scheduler to launch your jobs
 
 - __Step 4__ - Run `make_systems.py`in the directory you wish to be a home directory for each components directories
 
+- __Step 5__ - Use various post-processing scripts to...
+  - __Step 5.1__ - get coordination number and minimum distances between a ligand and components using `plumed_driver.py`
+
 
 ### To Do List
 
