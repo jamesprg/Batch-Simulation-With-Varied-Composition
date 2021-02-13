@@ -7,10 +7,7 @@ import itertools
 import numpy as np
 from optparse import OptionParser
 
-parser = OptionParser()
-#parser.add_option("-s", "--schedule", dest="sched", default=True,help="use slurm scheduler")
 parser = OptionParser(usage="Usage: %prog [options]",description="Generates, equilibrates, and prepares production runs for gromacs molecular dynamics simulations at varied concentrations.")
-#parser.add_option("--stepframe", dest="stepframe", type="int", default=1, help="Step size when iterating over frames [default: %default]")
 parser.add_option("-s", "--schedule", dest="sched", default=True,help="use slurm scheduler")
 (options, args) = parser.parse_args()
 if (len(args))<1:
@@ -18,9 +15,7 @@ if (len(args))<1:
 	print("\n python make_systems.py --schedule")
 	sys.exit()
 sched = args[0]
-
-
-os.system('rm slurm*out')
+sol = args[1]
 
 comps=['COMP1','COMP2','COMP3','SOLNUM']
 max_fm=10
@@ -32,8 +27,7 @@ for n,row in enumerate(systems.T[:3]):
 	systems[:,n][n*max_fm:(n+1)*max_fm] = values
 #convert to mmols and get solvent totals
 systems = systems*8
-sol = (20/18.02)*1000
-systems[:,-1]=round(sol+43+1200)
+systems[:,-1]=round(sol)
 systems=systems.astype('int32')
 outfile = open("system.txt", "w")
 volume=6.1
@@ -87,6 +81,7 @@ for n,i in enumerate(systems):
 		subprocess.call([sed],shell=True)
 	subprocess.call(['packmol < packmol.inp'],shell=True)	
 	subprocess.call(['gmx_mpi editconf -f mips.pdb -box %s %s %s -o ../equil/out.gro'%(volume,volume,volume)],shell=True)
+
 	#Equilibration Phase
 	os.chdir('../equil/')
 	for n,f in enumerate(i):
@@ -108,6 +103,7 @@ for n,i in enumerate(systems):
 	subprocess.call(['gmx_mpi grompp -f npt_equil.mdp -c ../anneal/confout.gro -p ../topol.top -maxwarn 1'],shell=True)
 	subprocess.call(['gmx_mpi mdrun'],shell=True)
 	os.chdir('../../prod/')
+
 	#Production run and submit job
 	subprocess.call(['gmx_mpi grompp -f nvt.mdp -c ../equil/nptber/confout.gro -p ../equil/topol.top -maxwarn 1'],shell=True)
 	sed='sed -i "s/JNAME/%s'%comps[count][:3]+str(system_n)+'/g" GROMACS.slurm'
@@ -116,5 +112,5 @@ for n,i in enumerate(systems):
 		subprocess.call(['sbatch -p ckpt -A pfaendtner-ckpt --ntasks=10 ./GROMACS.slurm'],shell=True)
 	outfile.write('submitting job for %s%s \n'%(comps[count][:3],system_n))
 	os.chdir('../../')
-#	break
+
 outfile.close()
