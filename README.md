@@ -28,7 +28,7 @@ As listed, you currently need the MDAnalysis dev version (otainable from their [
 
 ### To Do List
 
-- __1__ - Add functionality for choosing to turn on/off slurm submission
+- __1__ - COMPLETE: Add functionality for choosing to turn on/off slurm submission
 
 - __2__ - COMPLETE: Add functionality for choosing amount of solvent
 - __3__ - Add patched hbond_analysis module
