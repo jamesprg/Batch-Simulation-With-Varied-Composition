@@ -25,6 +25,8 @@ As listed, you currently need the MDAnalysis dev version (otainable from their [
 - __Step 5__ - Use various post-processing scripts to...
   - __Step 5.1__ - get coordination number and minimum distances between a ligand and components using `plumed_driver.py`
 
+- __Step 6__ - Repeat previous steps for alternate scenario, using walls to hold components in place with  `make_systems_hold.py`
+
 
 ### To Do List
 
