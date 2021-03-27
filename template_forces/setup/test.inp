@@ -1,0 +1,30 @@
+tolerance 2.0
+seed -1 
+filetype pdb
+output mips.pdb
+
+structure ISO.pdb
+  number 1
+  inside box 0. 0. 0. 10. 10. 10.
+end structure
+
+structure deama.pdb
+  number 4
+  inside box 0. 0. 0. 10. 10. 10.
+end structure
+
+structure hema.pdb
+  number 4
+  inside box 0. 0. 0. 10. 10. 10.
+end structure
+
+structure egdma.pdb
+  number 4
+  inside box 0. 0. 0. 10. 10. 10.
+end structure
+
+structure wat.pdb
+  number 2353
+  inside box 0. 0. 0. 51. 51. 51.
+end structure
+
