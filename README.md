@@ -6,6 +6,7 @@ Python scripts which automate the creation of various molecular dynamics systems
 - [python](https://www.python.org/) (3.6)
 - [packmol](http://m3g.iqm.unicamp.br/packmol/home.shtml) (>=18.169)
 - [GROMACS](https://manual.gromacs.org/documentation/2020/download.html) (2020)
+- [PLUMED](https://www.plumed.org/) (2.8)
 - [MDAnalysis](https://docs.mdanalysis.org/stable/index.html) (2.0.0-dev0)
 
 The script assumes you are using a slurm scheduler to launch your jobs.
