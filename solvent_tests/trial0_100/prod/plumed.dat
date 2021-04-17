@@ -1,0 +1,23 @@
+###############################################
+############## DEFINE RESIDUES ###############
+###############################################
+toxin_COM: COM ATOMS=1,2,3,4,5,6,7,8,15,16,17,18,19,20
+STY: COM ATOMS=21,22,23,24,25,26,32,35
+###############################################
+############## DEFINE COLVARS ###############
+###############################################
+d: DISTANCE ATOMS=STY,toxin_COM 
+METAD ...
+    ARG=d
+    SIGMA=0.0025
+    HEIGHT=1
+    PACE=500
+    TEMP=300
+    BIASFACTOR=6
+    LABEL=metad
+    GRID_MIN=0.1
+    GRID_MAX=4.1
+    WALKERS_MPI
+ ... METAD
+
+PRINT STRIDE=1500 ARG=* FILE=COLVAR
