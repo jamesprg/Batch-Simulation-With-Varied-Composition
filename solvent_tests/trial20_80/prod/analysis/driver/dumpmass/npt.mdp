@@ -1,0 +1,70 @@
+;
+;	GROMACS
+;       NPT Input File
+;
+;define                 =
+integrator              = md
+nsteps                  = 125; 250 ns total
+nstcalcenergy           = 1000
+dt                      = 0.002 ; picoseconds
+;
+; Removing CM Translation and Rotation
+comm_mode               = Linear
+nstcomm                 = 1000
+;
+; Output Control
+nstlog                  = 1000
+nstenergy               = 1000
+nstxout                 = 20000
+nstxtcout               = 1000
+nstvout                 = 20000
+nstfout                 = 20000
+;
+; Group Definition
+xtc-precision           = 5000
+xtc-grps                = Non-water
+;
+; Neighbour Searching
+nstlist                 = 10
+ns_type                 = grid
+pbc                     = xyz 
+rlist                   = 1.0
+;
+; Electrostatic
+rcoulomb                = 1.0
+coulombtype             = PME 
+;rcoulomb_switch         = 1.0 
+;fourierspacing         = 0.12
+;periodic_molecules     = yes 
+;
+; Van der Waals
+vdw-type                = Cut-off
+vdw_modifier            = Force-switch
+rvdw                    = 1.0
+rvdw-switch             = 0.9
+;
+cutoff-scheme = Verlet
+;
+; Temperature
+Tcoupl                  = v-rescale 
+tc_grps                 = system 
+tau_t                   = 0.1 
+ref_t                   = 298.15 
+;
+; Initial Velocities
+continuation            = no
+gen_vel                 = yes
+gen_temp                = 298.15
+gen_seed                = -1
+;
+;Constraints
+constraints             = all-bonds
+constraint-algorithm    = lincs
+lincs_iter              = 4
+;
+; Pressure
+Pcoupl                  = parrinello-rahman ; parrinello-rahman  berendsen (for equilibration only)
+Pcoupltype              = isotropic
+tau_p                   = 1.0
+compressibility         = 4.5e-5
+ref_p                   = 1.0
